@@ -1,0 +1,44 @@
+{% load static %}
+<nav class = "w-full flex justify-between items-center py-3 px-4 fixed z-50">
+    <div class="w-6/12">
+        <a href="/">
+            <img class = "w-2/12" src="{% static 'images/hashflix.png' %}">
+        </a>
+    </div>
+
+    <div class="w-9/12 flex flex-nowrap justify-end" >
+        {% if user.is_authenticated %}
+        <div class="mr-2">
+            <form method="get" action="{% url 'filme:pesquisafilme' %}">
+                <input type = "text" class="py-1 px-2 rounded-md text-black" name='query' value="{{ resquet.GET.query }}" placeholder="pesquisar...">
+                <input type="submit" value="">
+            </form>
+        </div>
+        {% endif %}
+         <div class="mr-2">
+             {% if user.is_authenticated %}
+             <a href="{% url 'filme:logout' %}">
+                <botton class=" bg-red-600 text-white py-1 px-3 rounded-md">
+                     Sair
+                </botton>
+            </a>
+            {% else %}
+            <a href="{% url 'filme:login' %}">
+                 <botton class=" bg-red-600 text-white py-1 px-3 rounded-md">
+                     Login
+                 </botton>
+            </a>
+             {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="mr-2">
+            <a href="{% url 'filme:editarperfil' user.pk %}">
+             <botton class="bg-red-600 text-white py-1 px-3 rounded-md">
+                editar perfil
+             </botton>
+            </a>
+
+        </div>
+        {% endif %}
+    </div>
+</nav>
